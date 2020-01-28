@@ -1,0 +1,633 @@
+SOURCE CODE: 
+
+#include<iostream> 
+#include<stdlib.h> 
+#include<fstream> 
+#include<math.h> 
+#include<cstdio> 
+#include<cstring> 
+#include<cstdlib> 
+#include<conio.h> 
+#include<iomanip> 
+#include<string> 
+#include<cctype> 
+#define int_value 5000 
+using namespace std; 
+class complaint 
+{ 
+public: 
+ void customer_StoreComplaint(); 
+ void admin_menu(); 
+    void create_complaint(); 
+    void cancel_complaint(); 
+ void view_complaint(); 
+ void exit(); 
+ complaint(); 
+}; 
+complaint::complaint () 
+{ 
+} 
+struct node 
+{ 
+ int complaint_number; 
+ string customerName; 
+ string date; 
+ string x; 
+ node *prev; 
+ node *next; 
+ node *link; 
+}*q, *temp; 
+node *start_ptr = NULL; 
+node *head = NULL; 
+node *last = NULL; 
+fstream userfile("myuser.txt",ios::app); 
+fstream pass("mypass.txt",ios::app); 
+char username[15],password[20],full_name[30],phone_no[10]; 
+#define int_value 5000 
+int top=0,stac[100]; 
+string name; 
+void view_initial() 
+{ 
+cout<<"\nthe initial value is "<<int_value; 
+} 
+void push() 
+{ 
+    stac[0]=int_value; 
+    cout<<"\nThe Base value is "<<stac[top]<<endl; 
+    int value; 
+    c: 
+    cout<<"\nEnter Name:"; 
+    cin>>name; 
+    cout<<"\nEnter the value you want to bid(Greater than "<<stac[top]<<")"<<endl; 
+    cin>>value; 
+    if(top<100 && value>stac[top]) 
+    { 
+        stac[++top]=value; 
+    } 
+    else if(value<=stac[top]) 
+    { 
+        cout<<"\nThe bidding amount should be greater than base amount "<<endl; 
+        goto c; 
+    } 
+    else 
+    { 
+        cout<<"\nBidding Expired"<<endl; 
+    } 
+    cout<<"Your bidding amount is"<<value<<endl; 
+} 
+void bid() 
+{ 
+    push(); 
+} 
+void pop() 
+{ 
+    cout<<"The winner of the BID is "<<name<<"\nValue is:"<<stac[top]<<endl; 
+} 
+void bidding() 
+{ 
+int c; 
+do 
+{ 
+    system("cls"); 
+ cout<<"\n"; 
+    cout<<"\t\t ================================================\n"; 
+ cout<<"\t\t|     Apartment Management System - Bidding      |\n"; 
+ cout<<"\t\t ================================================\n\n\n"; 
+ 
+ cout<<"\t\t-------------------------------------------------\n"; 
+ cout<<"\t\t|\t1. VIEW base value \t\t\t|\n"; 
+ cout<<"\t\t-------------------------------------------------\n"; 
+ cout<<"\t\t-------------------------------------------------\n"; 
+ cout<<"\t\t|\t2. BID YOUR AMOUNT \t\t\t|\n"; 
+ cout<<"\t\t-------------------------------------------------\n"; 
+ cout<<"\t\t-------------------------------------------------\n"; 
+ cout<<"\t\t|\t3. SHOW HIGGEST BIDDER\t\t\t|\n"; 
+ cout<<"\t\t-------------------------------------------------\n\n"; 
+ cout<<"\t\t|\t4. EXIT\t\t\t\t|\n"; 
+ cout<<"\t\t-------------------------------------------------\n\n"; 
+ cout<<"Enter your choice:"; 
+    cin>>c; 
+    switch(c) 
+    { 
+    case 1: 
+    { 
+        view_initial(); 
+        system("pause"); 
+        break; 
+    } 
+    case 2: 
+        { 
+            bid(); 
+            system("pause"); 
+            break; 
+        } 
+    case 3: 
+        { 
+            pop(); 
+            system("pause"); 
+            break; 
+        } 
+    case 4: 
+        { 
+            goto a; 
+            break; 
+        } 
+    } 
+} 
+    while(c!=4); 
+  a://goto 
+  cout<<"thank you"<<endl; 
+  system ("PAUSE"); 
+} 
+void details() 
+{ 
+    FILE *fp, *ft; 
+    char another, choice; 
+    struct student 
+    { 
+        char first_name[50], last_name[50]; 
+        long long int phoneno; 
+        int flat_no; 
+    }; 
+    struct student e; 
+    char xfirst_name[50], xlast_name[50]; 
+    int xphoneno[10],xflat_no[3]; 
+    long int recsize; 
+    fp=fopen("details.txt","rb+"); 
+    if (fp == NULL) 
+    { 
+        fp = fopen("users.txt","wb+"); 
+        if (fp==NULL) 
+        { 
+            puts("Cannot open file"); 
+            return ; 
+        } 
+    } 
+    recsize = sizeof(e); 
+    do 
+    { 
+        system("cls"); 
+        cout << "\t\t====== APARTMENT MANAGEMENT SYSTEM ======"; 
+        cout <<"\n\n                                          "; 
+        cout << "\n\n"; 
+        cout << "\n \t\t\t 1. Add    Details"; 
+        cout << "\n \t\t\t 2. View   Details"; 
+        cout << "\n \t\t\t 3. Modify Details"; 
+        cout << "\n \t\t\t 4. Delete Details"; 
+        cout << "\n \t\t\t 5. Exit   Details search!!!"; 
+        cout << "\n\n"; 
+        cout << "\t\t\t Enter Your Choice :"; 
+        fflush(stdin); 
+        choice = getchar(); 
+        switch(choice) 
+        { 
+        case '1' : 
+            fseek(fp,0,SEEK_END); 
+            another ='Y'; 
+             while(another == 'Y' || another == 'y') 
+            { 
+                system("cls"); 
+                cout << "Enter the Firt Name : "; 
+                cin >> e.first_name; 
+                cout << "Enter the Last Name : "; 
+                cin >> e.last_name; 
+                cout << "Enter the phone no.    : "; 
+                cin >> e.phoneno; 
+                cout<<"Enter the flat no.   : "; 
+                cin >> e.flat_no; 
+                fwrite(&e,recsize,1,fp); 
+                cout << "\n Add Another Record (Y/N) "; 
+                fflush(stdin); 
+                another = getchar(); 
+            } 
+            break; 
+        case '2': 
+            system("cls"); 
+            rewind(fp); 
+            cout << "=== View the Records in the Database ==="; 
+            cout << "\n"; 
+            while (fread(&e,recsize,1,fp) == 1) 
+            { 
+                cout << "\n"; 
+                cout <<"\n" << e.first_name << setw(10)  << e.last_name; 
+                cout << "\n"; 
+                cout <<"\n" <<e.phoneno <<  setw(8)  << e.flat_no; 
+            } 
+            cout << "\n\n"; 
+            system("pause"); 
+            break; 
+ 
+        case '3' : 
+            system("cls"); 
+            another = 'Y'; 
+            while (another == 'Y'|| another == 'y') 
+            { 
+                cout << "\n Enter the last name of the student : "; 
+                cin >> xlast_name; 
+                rewind(fp); 
+                while (fread(&e,recsize,1,fp) == 1) 
+                { 
+                    if (strcmp(e.last_name,xlast_name) == 0) 
+                    { 
+                        cout << "Enter new the Firt Name : "; 
+                        cin >> e.first_name; 
+                        cout << "Enter new the Last Name : "; 
+                        cin >> e.last_name; 
+                        cout << "Enter new the phone number   : "; 
+                        cin >> e.phoneno; 
+                        cout << "Enter new the flat number   : "; 
+                        cin >> e.flat_no; 
+                        fseek(fp, - recsize, SEEK_CUR); 
+                        fwrite(&e,recsize,1,fp); 
+                        break; 
+                    } 
+                    else 
+                        cout<<"record not found"; 
+                } 
+                cout << "\n Modify Another Record (Y/N) "; 
+                fflush(stdin); 
+                another = getchar(); 
+            } 
+            break; 
+        case '4': 
+            system("cls"); 
+            another = 'Y'; 
+            while (another == 'Y'|| another == 'y') 
+            { 
+                cout << "\n Enter the last name of the student to delete : "; 
+                cin >> xlast_name; 
+                ft = fopen("temp.dat", "wb"); 
+                rewind(fp); 
+                while (fread (&e, recsize,1,fp) == 1) 
+                    if (strcmp(e.last_name,xlast_name) != 0) 
+                    { 
+                        fwrite(&e,recsize,1,ft); 
+                    } 
+                fclose(fp); 
+                fclose(ft); 
+                remove("details.txt"); 
+                rename("temp1.dat","details.txt"); 
+                fp=fopen("details.txt","rb+"); 
+                cout << "\n Delete Another Record (Y/N) "; 
+                fflush(stdin); 
+                another = getchar(); 
+            } 
+            break; 
+        case '5': 
+            fclose(fp); 
+            cout << "\n\n"; 
+            cout << "\t\t     THANK YOU FOR USING THIS SOFTWARE"; 
+            cout << "\n\n"; 
+            goto a; 
+            break; 
+ 
+        } 
+    } 
+    while(choice!=5); 
+  a://goto 
+  cout<<"thank you"<<endl; 
+  system ("PAUSE"); 
+    return ; 
+} 
+void complaint1() 
+{ 
+   complaint admin; 
+    int option; 
+ do 
+ { 
+ cout<<"\n"; 
+    cout<<"\t\t ================================================\n"; 
+ cout<<"\t\t|   Apartment Management System - Complaint Box |\n"; 
+ cout<<"\t\t ================================================\n\n\n"; 
+ cout<<"\t\t-------------------------------------------------\n"; 
+ cout<<"\t\t|\t1. ADD complaint \t\t\t|\n"; 
+ cout<<"\t\t-------------------------------------------------\n"; 
+ cout<<"\t\t-------------------------------------------------\n"; 
+ cout<<"\t\t|\t2. Admin Login   \t\t\t|\n"; 
+ cout<<"\t\t-------------------------------------------------\n"; 
+ cout<<"\t\t-------------------------------------------------\n"; 
+ cout<<"\t\t|\t3. EXIT \t\t\t\t|\n"; 
+ cout<<"\t\t-------------------------------------------------\n\n"; 
+     cout<<"\t\tEnter your choice: "; 
+ cin>>option; 
+ switch(option) 
+ { 
+  case 1: 
+   admin.customer_StoreComplaint(); 
+   break; 
+  case 2: 
+   admin.admin_menu(); 
+   break; 
+  case 3: 
+   admin.exit(); 
+   goto a; 
+   break; 
+ } 
+ }while(option!=3); 
+  a://goto 
+  cout<<"thank you"<<endl; 
+  system ("PAUSE"); 
+}//end  main function 
+void complaint::customer_StoreComplaint() 
+{ 
+ system("cls"); 
+ cout<<"\n"; 
+     cout<<"\t\t ================================================\n"; 
+ cout<<"\t\t|   Apartment Management System - Complaint Box |\n"; 
+ cout<<"\t\t ================================================\n\n\n"; 
+ cout <<"\nAdd Your Complaint Details\n"; 
+ cout <<"________________________________\n\n"; 
+ node *temp; 
+ temp = new node; 
+ cout << "Type Complaint no: "; 
+     cin >> temp->complaint_number; 
+ cout<< "Enter Your Name: "; 
+ cin.ignore(); 
+ getline(cin, temp->customerName); 
+ cout<<"Enter Date : "; 
+ cin>>temp->date; 
+ cout << "Complaint Description:( 1000 words maximum ) \n"; 
+ cin.ignore(); 
+ getline(cin, temp->x); 
+ cout<<"============================================================= =============="<<endl; 
+     cout << "Complaint added Successfully"<<endl;  cout<<"============================================================= =============="<<endl; 
+ system ("PAUSE"); 
+     temp->next=NULL; 
+ if(start_ptr!=NULL) 
+ { 
+  temp->next=start_ptr; 
+ } 
+ start_ptr=temp; 
+ system("cls"); 
+} 
+void complaint::admin_menu() 
+{ 
+ complaint admin; 
+ int menu; 
+ string userName, userPassword; 
+ system("cls"); 
+ cout<<"\n"; 
+     cout<<"\t\t ===================================================\n"; 
+ cout<<"\t\t|  Apartment Management System - Complaint Box   |\n"; 
+ cout<<"\t\t ===================================================\n\n\n"; 
+     cout<<"\t\t----------------------------------------------------\n"; 
+     cout<<"\t\t\t  Administrator / Staff Login      \n"; 
+     cout<<"\t\t----------------------------------------------------\n\n"; 
+     cout << "\n\n\t\tPlease enter your user name: "; 
+     cin >> userName; 
+     cout << "\n\n\t\tPlease enter your user password: "; 
+     cin >> userPassword; 
+ 
+     if (userName == "user" && userPassword == "pass") 
+     { 
+     do 
+ { 
+         system("cls"); 
+         cout<<"\n"; 
+         cout<<"\t\t ===================================================\n"; 
+  cout<<"\t\t|   Apartment Management System - Complaint Box    |\n"; 
+  cout<<"\t\t ===================================================\n\n\n"; 
+  cout<<"\t\t--------------------------------------------------\n"; 
+  cout<<"\t\t||\t1. Create a Complaint \t\t\t ||\n"; 
+  cout<<"\t\t||\t2. View Complaint\t\t\t ||\n"; 
+  cout<<"\t\t||\t3. Cancel a Complaint \t\t\t ||\n"; 
+  cout<<"\t\t||\t4. Logout\t\t\t\t ||\n"; 
+  cout<<"\t\t||\t5. Exit  \t\t\t\t ||\n"; 
+  cout<<"\t\t--------------------------------------------------\n"; 
+  cout<<"Enter choice: "; 
+  cin>>menu; 
+  switch (menu) 
+  { 
+   case 1: 
+   { 
+    admin.create_complaint(); 
+    break; 
+   } 
+   case 2: 
+   { 
+    admin.view_complaint(); 
+    system("PAUSE"); 
+    break; 
+   } 
+   case 3: 
+   { 
+    admin.cancel_complaint(); 
+    system("PAUSE"); 
+    break; 
+   } 
+             case 4: 
+   { 
+    cout<<"You are Logged Out...!\n\n\n\n"; 
+    system ("PAUSE"); 
+    admin.admin_menu(); 
+    break; 
+   } 
+   case 5: 
+                { 
+                    goto b; 
+                    break; 
+                } 
+  } 
+  }while(menu!=5); 
+  b: 
+  cout<<"thank you"<<endl; 
+  system ("PAUSE"); 
+ } 
+ else 
+ { 
+           cout << "\n\n\t\tInvalid login attempt. Please try again.\n" << '\n'; 
+           system("PAUSE"); 
+           system ("cls"); 
+           admin.admin_menu(); 
+    } 
+} 
+void complaint::create_complaint() 
+{ 
+ system("cls"); 
+ cout<<"\n"; 
+     cout<<"\t\t ================================================\n"; 
+ cout<<"\t\t|   Apartment Management System - Complaint Box |\n"; 
+ cout<<"\t\t ================================================\n\n\n"; 
+ cout <<"\nAdd Complaint Details of Customer\n"; 
+ cout <<"_____________________________________ \n\n"; 
+ node *temp; 
+ temp = new node; 
+ cout << "Type Complaint no: "; 
+     cin >> temp->complaint_number; 
+ cout<< "Enter Customer Name: "; 
+ cin.ignore(); 
+ getline(cin, temp->customerName); 
+ cout<<"Enter Date : "; 
+ cin>>temp->date; 
+ cout << "Complaint Description:"; 
+ cout<<"( 1000 words maximum ) \n"; 
+ cin.ignore(); 
+ getline(cin, temp->x); 
+ 
+ cout<<"============================================================= =============="<<endl; 
+     cout << "Complaint added Successfully"<<endl; 
+     cout<<"============================================================= =============="<<endl; 
+     cout << "Go to Print Complaint to print the Complaint"<<endl; 
+     cout<<"============================================================= =============="<<endl; 
+ system ("PAUSE"); 
+     temp->next=NULL; 
+ if(start_ptr!=NULL) 
+ { 
+  temp->next=start_ptr; 
+ } 
+ start_ptr=temp; 
+ system("cls"); 
+} 
+void complaint::view_complaint() 
+{ 
+ int num; 
+ bool found; 
+ system("cls"); 
+ node *temp; 
+ temp=start_ptr; 
+ found = false; 
+ cout<<"\n"; 
+     cout<<"\t\t ================================================\n"; 
+ cout<<"\t\t|   Apartment Management System - Complaint Box |\n"; 
+ cout<<"\t\t ================================================\n\n\n"; 
+ cout<<" Enter the Complaint Number To Look into The Complaint Details\n"; 
+ cin>>num; 
+ cout<<"\n"; 
+ cout<<"---------------------------------------------------------------------------"<<endl; 
+ cout <<"\t\tHere is the Complaint list\n"; 
+ cout<<"---------------------------------------------------------------------------"<<endl; 
+ if(temp == NULL) 
+ { 
+  cout << "\tThere is no Complaint to show\n\t\t\tSo The List is Empty\n\n\n"; 
+ } 
+ while(temp !=NULL && !found) 
+ { 
+  if (temp->complaint_number==num) 
+  { 
+   found = true; 
+  } 
+  else 
+  { 
+   temp = temp -> next; 
+  } 
+        if (found) 
+        { 
+  cout <<"Complaint Number : "<<temp->complaint_number; 
+  cout <<"\n"; 
+  cout<<"Customer Name: "<<temp->customerName<<endl; 
+  cout<<"Complain Date : "<<temp->date<<endl; 
+ 
+ cout<<"____________________________________________________________________ _________"<<endl; 
+  cout<<"-------------------------"<<endl; 
+  cout<<"|Complaint description: |"<<endl; 
+  cout<<"-------------------------"<<endl; 
+  cout<<temp->x; 
+  cout <<"\n"; 
+ 
+ cout<<"____________________________________________________________________ _________"<<endl; 
+  } 
+} 
+} 
+void complaint::cancel_complaint() 
+{ 
+ system("cls"); 
+ int num, count; 
+ cout<<"\n"; 
+     cout<<"\t\t ================================================\n"; 
+ cout<<"\t\t|   Apartment Management System - Complaint Box |\n"; 
+ cout<<"\t\t ================================================\n\n\n"; 
+     cout<<"Enter the Complaint number you want to delete \n"; 
+     cin>>num; 
+     node *q; 
+ node *temp; 
+ bool found; 
+ if(start_ptr == NULL) 
+  cerr<<"Can not cancel from an empty list.\n"; 
+ else 
+ { 
+  if(start_ptr->complaint_number == num) 
+  { 
+   q = start_ptr; 
+   start_ptr = start_ptr->next; 
+   count--; 
+   if(start_ptr == NULL) 
+   last = NULL; 
+   delete q; 
+   cout<<"The Complaint is Cancelled Successfully"<<endl; 
+  } 
+  else 
+  { 
+   found = false; 
+   temp = start_ptr; 
+   q = start_ptr->next; 
+  while((!found) && (q != NULL)) 
+  { 
+     if(q->complaint_number != num) 
+   { 
+    temp = q; 
+    q = q-> next; 
+   } 
+   else 
+    found = true; 
+  } 
+   if(found) 
+   { 
+    temp->next = q->next; 
+    count--; 
+    if(last == q) 
+    last = temp; 
+    delete q; 
+    cout<<"The Complaint is Cancelled Successfully"<<endl; 
+   } 
+   else 
+    cout<<"Complaint to be Cancelled is not in the list."<<endl; 
+   } 
+  } 
+} 
+void complaint::exit() 
+{ 
+ cout<<"\nYou choose to exit.\n"<<endl; 
+} 
+int main() 
+{ 
+    while(1) 
+    { 
+        cout<<"\n\t\t\t********************************"; 
+        cout<<"\n\t\t\t* APARTMENT MANAGEMENT PROJECT *"; 
+        cout<<"\n\t\t\t********************************"; 
+        int n; 
+        cout<<"\n"; 
+        cout<<"\t\t ================================================\n"; 
+        cout<<"\t\t|       Apartment Management System-WELCOME      |\n"; 
+        cout<<"\t\t ================================================\n\n\n"; 
+        cout<<"\t\t-------------------------------------------------\n"; 
+        cout<<"\t\t|\t1. Details \t\t\t\t|\n"; 
+        cout<<"\t\t-------------------------------------------------\n"; 
+        cout<<"\t\t-------------------------------------------------\n"; 
+        cout<<"\t\t|\t2. Bidding \t\t\t\t|\n"; 
+        cout<<"\t\t-------------------------------------------------\n"; 
+        cout<<"\t\t-------------------------------------------------\n"; 
+        cout<<"\t\t|\t3. COMPLAINT BOX \t\t\t|\n"; 
+        cout<<"\t\t-------------------------------------------------\n\n"; 
+        cout<<"\t\tEnter your choice:"; 
+        cin>>n; 
+        switch(n) 
+        { 
+        case 1: 
+            { 
+                details(); 
+                break; 
+            } 
+        case 2: 
+            { 
+                bidding(); 
+                break; 
+            } 
+        case 3: 
+            { 
+                complaint1(); 
+                break; 
+            } 
+        } 
+    } 
+} 
